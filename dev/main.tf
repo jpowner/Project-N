@@ -11,3 +11,8 @@ module "network" {
   private_subnets    = ["10.1.1.0/24"]
   availability_zones = data.aws_availability_zones.available.names
 }
+
+module "security" {
+  source           = "../modules/security"
+  vpc_id           = module.network.vpc_id
+}
