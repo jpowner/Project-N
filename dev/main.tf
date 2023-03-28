@@ -20,3 +20,12 @@ module "security" {
 module "iam" {
   source           = "../modules/iam"
 }
+
+module "compute" {
+  source                = "../modules/compute"
+  ami                   = data.aws_ami.amzn_linux.id
+  instance_type         = "t2.micro"
+  public_subnet_id      = module.network.public_subnet_ids[0]
+  root_volume_size      = 8
+  ssm_role_profile_name = module.iam.ssm_role_profile_name
+}
